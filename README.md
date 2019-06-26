@@ -26,7 +26,7 @@ Things you may want to cover:
 |e_mail|string|null: false|
 
 ### Association
-- has_many :groups
+- has_many :groups through :user_groups
 - has_many :messages
 - has_many :user_groups
 
@@ -39,7 +39,7 @@ Things you may want to cover:
 |name|string|null: false|
 
 ### Association
-- has_many :users
+- has_many :users through :user_groups
 - has_many :users_groups
 
 
