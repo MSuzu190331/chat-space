@@ -13,20 +13,15 @@ Things you may want to cover:
 
 * Database creation
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-
 ## userテーブル
 
 |Column|Type|Options|
 |------|----|-------|
-|id|integer|null: false|
-|name|string|null: false|
+|name|string|null: false, index: true|
 |e_mail|string|null: false|
 
 ### Association
-- has_many :groups through :user_groups
+- has_many :groups, through :user_groups
 - has_many :messages
 - has_many :user_groups
 
@@ -35,15 +30,15 @@ Things you may want to cover:
 
 |Column|Type|Options|
 |------|----|-------|
-|id|integer|null: false|
 |name|string|null: false|
 
 ### Association
-- has_many :users through :user_groups
-- has_many :users_groups
+- has_many :users, through :user_groups
+- has_many :user_groups
+- has_many :messages
 
 
-## users_groupsテーブル
+## user_groupsテーブル
 
 |Column|Type|Options|
 |------|----|-------|
@@ -67,11 +62,10 @@ Things you may want to cover:
 
 ### Association
 - belongs_to :user
+- belongs_to :group
 
 
-=======
->>>>>>> parent of 836e730... Append database design to README.md
->>>>>>> d81eeaedca3ed281cfb424ed6c1f76403ee8f30f
+
 * Database initialization
 
 * How to run the test suite
