@@ -11,9 +11,28 @@
         = link_to("/users/edit") do
           %i.fa.fa-cog
     .groups
-      %a{ :href => '/groups/messages' }
+      %a{ href: '/groups/messages' }
         .group
           %p.group__group-name 
             group name
           %p.group__latest-message
             group messages
+  .chat-main
+    .main-header 
+      .current-group  
+        %h2.current-group__name
+          group name
+        %ul.member-list
+          Member：
+          %li.member-list__member
+            name
+      = link_to root_path do
+        .main-header__edit-btn 
+          Edit
+    .messages
+      .message
+        .upper-info
+          .upper-info__user
+          .upper-info__date
+        %p.message__text
+    .form 
