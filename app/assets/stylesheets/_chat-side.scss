@@ -89,6 +89,28 @@
       padding: 46px 40px;
       background-color: #fafafa;
       overflow: scroll;
+      .message{
+        padding-bottom: 40px;
+        .upper-info{
+          display: flex;
+          margin-bottom: 10px;
+          .upper-info__user{
+            color: #434a54;
+            font-size: 16px;
+            font-weight: bold;
+          }
+          .upper-info__date{
+            color: #000000;
+            font-size: 12px;
+            margin-left: 10px;
+          }
+        }
+        .message__text{
+          color: #434a54;
+          font-size: 14px;
+          margin-bottom: 10px;
+        }
+      }
     }
     .form{
       height: 90px;
