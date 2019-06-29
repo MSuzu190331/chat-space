@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .wrapper{
   .chat-side{
     width: 300px;
@@ -9,15 +13,20 @@
       height: 100px;
       align-items: center;
       padding: 0 20px;
+      display: flex;
+      font-weight: bold;
+      justify-content: space-between;
       .side-header__user-name{
-      .user-menu{
-        .user-menu__edit-user{
-        .user-menu__new-group{
-
-              }
-            }
-          }
         }
+      .user-menu{
+        display: flex;
+        .user-menu__edit-user{
+          margin-left: 0.3rem;
+        }
+        .user-menu__new-group{
+          margin-left: 0.3rem;
+              }
+          }
       }
     .groups{
 
@@ -42,4 +51,14 @@
 p{
   color: white;
   text-decoration: none ;
+}
+
+a{
+  text-decoration: none ;
+  color: white;
+}
+
+li{
+  
+  display: list-item;
 }

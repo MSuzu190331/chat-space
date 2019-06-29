@@ -2,14 +2,18 @@
   .chat-side
     .side-header
       %p.side-header__user-name
-        なまえ
+        name
       %ul.user-menu
         %li.user-menu__edit-user
+        = link_to("/groups/new") do
+          %i.fa.fa-edit
         %li.user-menu__new-group
+        = link_to("/users/edit") do
+          %i.fa.fa-cog
     .groups
-      %a{ :href => '/groups/1/messages' }
+      %a{ :href => '/groups/messages' }
         .group
           %p.group__group-name 
-            グループ名
+            group name
           %p.group__latest-message
-            グループメッセージ
+            group messages
