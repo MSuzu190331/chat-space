@@ -6,12 +6,12 @@
       %ul.user-menu
         %li.user-menu__edit-user
         = link_to("/groups/new") do
-          %i.fa.fa-edit
+          =fa_icon "edit"
         %li.user-menu__new-group
         = link_to("/users/edit") do
-          %i.fa.fa-cog
+          =fa_icon "cog"
     .groups
-      %a{ href: '/groups/messages' }
+      = link_to("groups/messages") do
         .group
           %p.group__group-name 
             group name
@@ -43,7 +43,7 @@
         .input-box
           = f.text_field "content",class: "message_content input-box__text", placeholder: "type a message"
           = f.label "image", class: "image-label", for: "message_image" do
-            %i.fa.fa-image
+            =fa_icon "image"
             = f.file_field :upload_file, class: "image-label__input", id: "message_image"
           = f.submit "Send", class: "new-message__submit-btn"
 
