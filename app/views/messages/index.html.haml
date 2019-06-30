@@ -38,4 +38,12 @@
             2019/06/28(Fri) 19:36:29
         %p.message__text
           test
-    .form 
+    .form
+      = form_for("") do |f|
+        .input-box
+          = f.text_field "content",class: "message_content input-box__text", placeholder: "type a message"
+          = f.label "image", class: "image-label", for: "message_image" do
+            %i.fa.fa-image
+            = f.file_field :upload_file, class: "image-label__input", id: "message_image"
+          = f.submit "Send", class: "new-message__submit-btn"
+
