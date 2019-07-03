@@ -18,6 +18,8 @@
       font-weight: bold;
       justify-content: space-between;
       &__user-name{
+        display: inline-block;
+        font-weight: bold;
         }
       .user-menu{
         display: flex;
