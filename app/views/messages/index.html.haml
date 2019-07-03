@@ -1,22 +1,5 @@
 .wrapper
-  .chat-side
-    .side-header
-      %p.side-header__user-name
-        name
-      %ul.user-menu
-        %li.user-menu__edit-user
-        = link_to "/groups/new" do
-          =fa_icon "edit"
-        %li.user-menu__new-group
-        = link_to "/users/edit" do
-          =fa_icon "cog"
-    .groups
-      = link_to "groups/messages" do
-        .group
-          %p.group__group-name 
-            group name
-          %p.group__latest-message
-            group messages
+  = render 'shared/side_bar'
   .chat-main
     .main-header 
       .current-group  
