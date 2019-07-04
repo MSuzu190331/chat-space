@@ -13,20 +13,12 @@
         .main-header__edit-btn 
           Edit
     .messages
-      .message
-        .upper-info
-          .upper-info__user
-            name
-          .upper-info__date
-            2019/06/28(Fri) 19:36:29
-        %p.message__text
-          test
+      = render @messages
     .form
-      = form_for("") do |f|
+      = form_for [@group, @message] do |f|
         .input-box
-          = f.text_field "content",class: "message_content input-box__text", placeholder: "type a message"
-          = f.label "image", class: "image-label", for: "message_image" do
+          = f.text_field :content, class: "message_content input-box__text", placeholder: "type a message"
+          = f.label :image, class: "image-label", for: "message_image" do
             =fa_icon "image"
-            = f.file_field :upload_file, class: "image-label__input", id: "message_image"
+            = f.file_field :image, class: "image-label__input", id: "message_image"
           = f.submit "Send", class: "new-message__submit-btn"
-
