@@ -37,9 +37,13 @@ $(function() {
         var html = buildmessage(data);
         $('.messages').append(html);
         $('.input-box__text').val('');
+        $('.messages').animate({scrollTop: $('.messages').get(0).scrollHeight },'fast');
       })
       .fail(function(){
-        alert('error');
+        alert('メッセージを入力してください');
+      })
+      .always(function(){
+        $(".new-message__submit-btn").removeAttr('disabled')
       });
     });
 });
