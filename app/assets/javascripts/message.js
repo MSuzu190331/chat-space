@@ -3,22 +3,21 @@ $(function() {
     var content = message.content? `${message.content}`:"" 
     var image = message.image? `${message.image}`:""
     var html = `<div class="message">
-    <div class="upper-info">
-    <div class="upper-info__user">
-      ${message.user_name}
-    </div>
-    <div class="upper-info__date">
-      ${message.created_at}
-    </div>
-    </div>
-    <p class="message__text">
-      ${content}
-    </p>
-    <p class="message__text">
-      <img src=${image}>
-    </p>
-
-    </div>`
+                  <div class="upper-info">
+                    <div class="upper-info__user">
+                      ${message.user_name}
+                    </div>
+                    <div class="upper-info__date">
+                      ${message.created_at}
+                    </div>
+                  </div>
+                    <p class="message__text">
+                      ${content}
+                    </p>
+                    <p class="message__text">
+                      <img src=${image}>
+                    </p>
+                </div>`
     return html;
   }
   $('#new_message').on('submit',function(e){
