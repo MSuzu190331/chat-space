@@ -2,14 +2,16 @@
   = render 'shared/side_bar'
   .chat-main
     .main-header 
-      .current-group  
+      .current-group
         %h2.current-group__name
-          group name
+          =@group.name
         %ul.member-list
           Member：
-          %li.member-list__member
-            name
-      = link_to edit_group_path(current_user) do
+          -@group.users.each do |user| 
+            %li.member-list__member
+              = user.name
+        
+      = link_to edit_group_path(@group) do
         .main-header__edit-btn 
           Edit
     .messages
@@ -22,3 +24,6 @@
             =fa_icon "image"
             = f.file_field :image, class: "image-label__input", id: "message_image"
           = f.submit "Send", class: "new-message__submit-btn"
+
+
+-# ここはmessagesコントローラーのindexアクション部分
