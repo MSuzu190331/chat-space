@@ -6,7 +6,7 @@
 .wrapper{
   .chat-side{
     width: 300px;
-    color: $font-color;
+    color: $white;
     float: left;
     height: 100vh;
     .side-header{
@@ -71,7 +71,7 @@
           font-size: 12px;
           color: #999999;
           &__member{
-
+            padding: 0px 1px;
           }
         }
         
@@ -135,7 +135,7 @@
           font-size: 1.3rem;
           position: relative;
           width: 5%;
-          background-color: $font-color;
+          background-color: $white;
           .fa-image {
             position: absolute;
             top: 15px;
@@ -151,7 +151,7 @@
           padding: 0 30px;
           margin-left: 15px;
           background-color: $btn-color;
-          color: $font-color;
+          color: $white;
           cursor: pointer;
           }
       }
@@ -160,13 +160,12 @@
 }
 
 p{
-  color: $font-color;
   text-decoration: none ;
 }
 
 a{
   text-decoration: none ;
-  color: $font-color;
+  color: $white;
 }
 
 li{
