@@ -2,7 +2,7 @@ $(function() {
   function buildmessage(message){
     var content = message.content? `${message.content}`:"" 
     var image = message.image? `${message.image}`:""
-    var html = `<div class="message">
+    var html = `<div class="message" data-id="${message.id}">
                   <div class="upper-info">
                     <div class="upper-info__user">
                       ${message.user_name}
@@ -20,6 +20,7 @@ $(function() {
                 </div>`
     return html;
   }
+
   $('#new_message').on('submit',function(e){
     e.preventDefault();
     var message = new FormData(this);
@@ -45,4 +46,34 @@ $(function() {
         $(".new-message__submit-btn").removeAttr('disabled')
       });
     });
+
+
+// ここから先自動更新
+
+      var reloadMessages = function() {
+        //カスタムデータ属性を利用し、ブラウザに表示されている最新メッセージのidを取得
+        var last_message_id = $('.message:last').data('id');
+        var group_id = $(`.chat-main`).data(`group-id`);
+        console.log(last_message_id); 
+        console.log(group_id);
+        $.ajax({
+          //ルーティングで設定した通りのURLを指定
+          url: `/groups/${group_id}/api/messages`,
+          //ルーティングで設定した通りhttpメソッドをgetに指定
+          type: 'get',
+          dataType: 'json',
+          //dataオプションでリクエストに値を含める
+          data: {id: last_message_id}
+        })
+        .done(function(messages) {
+          console.log('success');
+        })
+        .fail(function() {
+          console.log('自動更新が停止しました');
+        });
+      };
+      //途中省略
+      //$(function(){});の閉じタグの直上(処理の最後)に以下のように追記
+        setInterval(reloadMessages, 10000);
+
 });

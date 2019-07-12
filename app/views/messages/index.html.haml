@@ -1,7 +1,7 @@
 .wrapper
   = render 'shared/side_bar'
-  .chat-main
-    .main-header 
+  .chat-main{"data-group-id": "#{@group.id}"}
+    .main-header
       .current-group
         %h2.current-group__name
           =@group.name
