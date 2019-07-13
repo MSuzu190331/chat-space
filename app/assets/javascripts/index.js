@@ -1,4 +1,4 @@
-$(document).on ('turbolinks:load',function() {
+$(document).on('turbolinks:load',function() {
 
   var search_list = $("#user-search-result");    //親要素のdivクラス
 // 検索して引っかかったユーザー名(子要素のdivクラス)を親要素の下に追加するための処理

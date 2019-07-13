@@ -1,8 +1,9 @@
-$(function() {
+$(document).on('turbolinks:load',function() {
+  
   function buildmessage(message){
     var content = message.content? `${message.content}`:"" 
-    var image = message.image? `${message.image}`:""
-    var html = `<div class="message">
+    var image = message.image.url? `${message.image.url}`:""
+    var html = `<div class="message" data-id="${message.id}">
                   <div class="upper-info">
                     <div class="upper-info__user">
                       ${message.user_name}
@@ -20,6 +21,7 @@ $(function() {
                 </div>`
     return html;
   }
+
   $('#new_message').on('submit',function(e){
     e.preventDefault();
     var message = new FormData(this);
@@ -36,6 +38,7 @@ $(function() {
         var html = buildmessage(data);
         $('.messages').append(html);
         $('.input-box__text').val('');
+        $('#message_image').val('');
         $('.messages').animate({scrollTop: $('.messages').get(0).scrollHeight },'fast');
       })
       .fail(function(){
@@ -45,4 +48,37 @@ $(function() {
         $(".new-message__submit-btn").removeAttr('disabled')
       });
     });
+
+
+// ここから先自動更新
+    $(function(){
+      var url = location.href
+      if (url.match(/message/)){
+      var reloadMessages = function() {
+        //カスタムデータ属性を利用し、ブラウザに表示されている最新メッセージのidを取得
+        var last_message_id = $('.message:last').data('id');
+        var group_id = $(`.chat-main`).data(`group-id`);
+        $.ajax({
+          //ルーティングで設定した通りのURLを指定
+          url: `/groups/${group_id}/api/messages`,
+          //ルーティングで設定した通りhttpメソッドをgetに指定
+          type: 'get',
+          dataType: 'json',
+          //dataオプションでリクエストに値を含める
+          data: {id: last_message_id}
+        })
+        .done(function(messages) {
+          $.each(messages, function(index, message){
+            var html = buildmessage(message);
+            $('.messages').append(html);
+            $('.messages').animate({scrollTop: $('.messages').get(0).scrollHeight },'fast');
+          });
+        })
+        .fail(function() {
+          alert('自動更新が停止しました');
+        });
+      };
+        setInterval(reloadMessages, 5000);
+    }
+  });
 });
