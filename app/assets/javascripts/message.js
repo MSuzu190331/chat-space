@@ -78,8 +78,6 @@ $(document).on('turbolinks:load',function() {
           alert('自動更新が停止しました');
         });
       };
-      //途中省略
-      //$(function(){});の閉じタグの直上(処理の最後)に以下のように追記
         setInterval(reloadMessages, 5000);
     }
   });
