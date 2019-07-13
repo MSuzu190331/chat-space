@@ -53,14 +53,11 @@ $(document).on('turbolinks:load',function() {
 // ここから先自動更新
     $(function(){
       var url = location.href
-      // console.log(url)
       if (url.match(/message/)){
       var reloadMessages = function() {
         //カスタムデータ属性を利用し、ブラウザに表示されている最新メッセージのidを取得
         var last_message_id = $('.message:last').data('id');
         var group_id = $(`.chat-main`).data(`group-id`);
-        // console.log(last_message_id); 
-        // console.log(group_id);
         $.ajax({
           //ルーティングで設定した通りのURLを指定
           url: `/groups/${group_id}/api/messages`,
@@ -71,17 +68,14 @@ $(document).on('turbolinks:load',function() {
           data: {id: last_message_id}
         })
         .done(function(messages) {
-          // console.log(messages)
           $.each(messages, function(index, message){
-            console.log(message)
             var html = buildmessage(message);
             $('.messages').append(html);
             $('.messages').animate({scrollTop: $('.messages').get(0).scrollHeight },'fast');
           });
-          // buildmessage(message)
         })
         .fail(function() {
-          console.log('自動更新が停止しました');
+          alert('自動更新が停止しました');
         });
       };
       //途中省略
