@@ -58,7 +58,7 @@ $(document).on('turbolinks:load',function() {
     });
 
 
-//change使う方のやりかた(とりあえず保留)
+//change使う方サイドバー非同期、自動更新のやりかた(とりあえず保留)
 // $(document).ready(function(data) {
 //   $('.messages').on('DOMSubtreeModified propertychange', function() {
 //     var last_message = $('.message:last')
