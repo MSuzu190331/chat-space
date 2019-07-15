@@ -11,8 +11,8 @@
         =fa_icon "cog", class: 'icon'
   .groups
     - current_user.groups.each do |group|
-      .group{"data-group-id": "#{group.id}"}
-        = link_to group_messages_path(group) do
+      = link_to group_messages_path(group) do
+        .group{id: "group-#{group.id}", "data-group-id": "#{group.id}"}       
           %p.group__group-name 
             = group.name
           %p.group__latest-message{"data-last-message": "#{group.id}"}

@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load',function() {
-  
+
   function buildmessage(message){
     var content = message.content? `${message.content}`:"" 
     var image = message.image.url? `${message.image.url}`:""
@@ -15,12 +15,14 @@ $(document).on('turbolinks:load',function() {
                     <p class="message__text">
                       ${content}
                     </p>
-                    <p class="message__text">
+                    <p class="lower-message__image">
                       <img src=${image}>
                     </p>
                 </div>`
     return html;
   }
+
+
 
   $('#new_message').on('submit',function(e){
     e.preventDefault();
@@ -40,6 +42,12 @@ $(document).on('turbolinks:load',function() {
         $('.input-box__text').val('');
         $('#message_image').val('');
         $('.messages').animate({scrollTop: $('.messages').get(0).scrollHeight },'fast');
+//サイドバーの非同期
+        var last_message_content = data.content;
+        var current_group_id = $(`.chat-main`).data(`group-id`);
+        var target_html = $('#group-' + current_group_id).find('.group__latest-message')
+        target_html.text(last_message_content);
+
       })
       .fail(function(){
         alert('メッセージを入力してください');
@@ -48,6 +56,28 @@ $(document).on('turbolinks:load',function() {
         $(".new-message__submit-btn").removeAttr('disabled')
       });
     });
+
+
+//change使う方のやりかた(とりあえず保留)
+// $(document).ready(function(data) {
+//   $('.messages').on('DOMSubtreeModified propertychange', function() {
+//     var last_message = $('.message:last')
+//   console.log(last_message)
+
+
+//     // var current_group_id = $(`.chat-main`).data(`group-id`);
+    
+//     //   var last_message_content = data.content;
+//     //   console.log(last_message_content)
+//     //   var current_group_id = $(`.chat-main`).data(`group-id`);
+//     //   var target_html = $('#group-' + current_group_id).find('.group__latest-message')
+//     //   target_html.text(last_message_content);
+//     // // $('.group__latest-message[data-last-message="$(data.id)"]').text(data.content)
+
+  //   });
+  // });
+
+
 
 
 // ここから先自動更新
@@ -73,7 +103,15 @@ $(document).on('turbolinks:load',function() {
             $('.messages').append(html);
             $('.messages').animate({scrollTop: $('.messages').get(0).scrollHeight },'fast');
           });
-        })
+
+            var elements = document.getElementsByClassName('message__text');
+            var lastElement = elements[elements.length - 1].innerText;
+            console.log(lastElement);
+            var current_group_id = $(`.chat-main`).data(`group-id`);
+            var target_html = $('#group-' + current_group_id).find('.group__latest-message')
+            target_html.text(lastElement);
+      
+          })
         .fail(function() {
           alert('自動更新が停止しました');
         });
