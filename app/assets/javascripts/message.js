@@ -69,10 +69,7 @@ $(document).on('turbolinks:load',function() {
 
 
 // ここから先自動更新
-        .done(function(messages) {
   $(function(){
-    
-    
     var reloadMessages = function() {
       //カスタムデータ属性を利用し、ブラウザに表示されている最新メッセージのidを取得
       var last_message_id = $('.message:last').data('id');
