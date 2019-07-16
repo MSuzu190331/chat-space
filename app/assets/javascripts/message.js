@@ -70,6 +70,8 @@ $(document).on('turbolinks:load',function() {
 
 // ここから先自動更新
   $(function(){
+    var url = location.pathname
+    if (url.match(/messages/)){
     var reloadMessages = function() {
       //カスタムデータ属性を利用し、ブラウザに表示されている最新メッセージのidを取得
       var last_message_id = $('.message:last').data('id');
@@ -101,12 +103,9 @@ $(document).on('turbolinks:load',function() {
       .fail(function() {
         alert('自動更新が停止しました');
       });
+      setInterval(reloadMessages, 5000);
+    }
     };
-    var url = location.pathname
-
-      if ($(".current-group")[0]){
-        setInterval(reloadMessages, 5000);
-      }
 
   });
 });
