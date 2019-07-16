@@ -68,47 +68,45 @@ $(document).on('turbolinks:load',function() {
 
 
 
-
 // ここから先自動更新
-    $(function(){
-      var url = location.href
-      if (url.match(/message/)){
-      var reloadMessages = function() {
-        //カスタムデータ属性を利用し、ブラウザに表示されている最新メッセージのidを取得
-        var last_message_id = $('.message:last').data('id');
-        var group_id = $('.chat-main').data('group-id');
-        // var side_last_messages = $('.group__latest-message').data('last-message');
-        // var side_groups = $('.group').attr('id');
-        // console.log(side_groups)
-        $.ajax({
-          //ルーティングで設定した通りのURLを指定
-          url: `/groups/${group_id}/api/messages`,
-          //ルーティングで設定した通りhttpメソッドをgetに指定
-          type: 'get',
-          dataType: 'json',
-          //dataオプションでリクエストに値を含める
-          data: {id: last_message_id, group_id: group_id}
-        })
-        .done(function(messages) {
-          $.each(messages, function(index, message){
-            var html = buildmessage(message);
-            $('.messages').append(html);
-            $('.messages').animate({scrollTop: $('.messages').get(0).scrollHeight },'fast');
-          });
+  $(function(){
+    var reloadMessages = function() {
+      //カスタムデータ属性を利用し、ブラウザに表示されている最新メッセージのidを取得
+      var last_message_id = $('.message:last').data('id');
+      var group_id = $('.chat-main').data('group-id');
 
-            var elements = document.getElementsByClassName('message__text');
-            var lastElement = elements[elements.length - 1].innerText;
-            //console.log(lastElement);
-            var current_group_id = $(`.chat-main`).data(`group-id`);
-            var target_html = $('#group-' + current_group_id).find('.group__latest-message')
-            target_html.text(lastElement);
-      
-          })
-        .fail(function() {
-          alert('自動更新が停止しました');
+      $.ajax({
+        //ルーティングで設定した通りのURLを指定
+        url: `/groups/${group_id}/api/messages`,
+        //ルーティングで設定した通りhttpメソッドをgetに指定
+        type: 'get',
+        dataType: 'json',
+        //dataオプションでリクエストに値を含める
+        data: {id: last_message_id, group_id: group_id}
+      })
+      .done(function(messages) {
+        $.each(messages, function(index, message){
+          var html = buildmessage(message);
+          $('.messages').append(html);
+          $('.messages').animate({scrollTop: $('.messages').get(0).scrollHeight },'fast');
         });
-      };
+
+          var elements = document.getElementsByClassName('message__text');
+          var lastElement = elements[elements.length - 1].innerText;
+          var current_group_id = $(`.chat-main`).data(`group-id`);
+          var target_html = $('#group-' + current_group_id).find('.group__latest-message')
+          target_html.text(lastElement);
+    
+        })
+      .fail(function() {
+        alert('自動更新が停止しました');
+      });
+    };
+    var url = location.pathname
+
+      if ($(".current-group")[0]){
         setInterval(reloadMessages, 5000);
-    }
+      }
+
   });
 });
