@@ -63,17 +63,6 @@ $(document).on('turbolinks:load',function() {
 //   $('.messages').on('DOMSubtreeModified propertychange', function() {
 //     var last_message = $('.message:last')
 //   console.log(last_message)
-
-
-//     // var current_group_id = $(`.chat-main`).data(`group-id`);
-    
-//     //   var last_message_content = data.content;
-//     //   console.log(last_message_content)
-//     //   var current_group_id = $(`.chat-main`).data(`group-id`);
-//     //   var target_html = $('#group-' + current_group_id).find('.group__latest-message')
-//     //   target_html.text(last_message_content);
-//     // // $('.group__latest-message[data-last-message="$(data.id)"]').text(data.content)
-
   //   });
   // });
 
@@ -87,7 +76,10 @@ $(document).on('turbolinks:load',function() {
       var reloadMessages = function() {
         //カスタムデータ属性を利用し、ブラウザに表示されている最新メッセージのidを取得
         var last_message_id = $('.message:last').data('id');
-        var group_id = $(`.chat-main`).data(`group-id`);
+        var group_id = $('.chat-main').data('group-id');
+        // var side_last_messages = $('.group__latest-message').data('last-message');
+        // var side_groups = $('.group').attr('id');
+        // console.log(side_groups)
         $.ajax({
           //ルーティングで設定した通りのURLを指定
           url: `/groups/${group_id}/api/messages`,
@@ -95,7 +87,7 @@ $(document).on('turbolinks:load',function() {
           type: 'get',
           dataType: 'json',
           //dataオプションでリクエストに値を含める
-          data: {id: last_message_id}
+          data: {id: last_message_id, group_id: group_id}
         })
         .done(function(messages) {
           $.each(messages, function(index, message){
@@ -106,7 +98,7 @@ $(document).on('turbolinks:load',function() {
 
             var elements = document.getElementsByClassName('message__text');
             var lastElement = elements[elements.length - 1].innerText;
-            console.log(lastElement);
+            //console.log(lastElement);
             var current_group_id = $(`.chat-main`).data(`group-id`);
             var target_html = $('#group-' + current_group_id).find('.group__latest-message')
             target_html.text(lastElement);
