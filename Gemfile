@@ -73,3 +73,5 @@ gem 'erb2haml'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'i18n'
+
+gem 'fog-aws'
