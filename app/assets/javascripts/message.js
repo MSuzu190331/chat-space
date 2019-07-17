@@ -12,9 +12,9 @@ $(document).on('turbolinks:load',function() {
                       ${message.created_at}
                     </div>
                   </div>
-                    <p class="message__text">
-                      ${content}
-                    </p>
+                  <p class="message__text" id="message-${message.id}">
+                    ${content}
+                  </p>
                     <p class="lower-message__image">
                       <img src=${image}>
                     </p>
@@ -42,9 +42,10 @@ $(document).on('turbolinks:load',function() {
         $('.input-box__text').val('');
         $('#message_image').val('');
         $('.messages').animate({scrollTop: $('.messages').get(0).scrollHeight },'fast');
+
 //サイドバーの非同期
         var last_message_content = data.content;
-        var current_group_id = $(`.chat-main`).data(`group-id`);
+        var current_group_id = $('.chat-main').data('group-id');
         var target_html = $('#group-' + current_group_id).find('.group__latest-message')
         target_html.text(last_message_content);
 
@@ -66,46 +67,42 @@ $(document).on('turbolinks:load',function() {
   //   });
   // });
 
-
+//document.URL.match(/messages/)
 
 // ここから先自動更新
-  $(function(){
-    var url = location.pathname
-    if (url.match(/messages/)){
     var reloadMessages = function() {
       //カスタムデータ属性を利用し、ブラウザに表示されている最新メッセージのidを取得
+      if($('.messages')[0]){
       var last_message_id = $('.message:last').data('id');
       var group_id = $('.chat-main').data('group-id');
+      }
 
-      $.ajax({
-        //ルーティングで設定した通りのURLを指定
-        url: `/groups/${group_id}/api/messages`,
-        //ルーティングで設定した通りhttpメソッドをgetに指定
-        type: 'get',
-        dataType: 'json',
-        //dataオプションでリクエストに値を含める
-        data: {id: last_message_id, group_id: group_id}
-      })
-      .done(function(messages) {
-        $.each(messages, function(index, message){
-          var html = buildmessage(message);
-          $('.messages').append(html);
-          $('.messages').animate({scrollTop: $('.messages').get(0).scrollHeight },'fast');
-        });
-
-          var elements = document.getElementsByClassName('message__text');
-          var lastElement = elements[elements.length - 1].innerText;
-          var current_group_id = $(`.chat-main`).data(`group-id`);
-          var target_html = $('#group-' + current_group_id).find('.group__latest-message')
-          target_html.text(lastElement);
-    
+      if (window.location.href.match(/\/groups\/\d+\/messages/)) {
+        $.ajax({
+          url: `/groups/${group_id}/api/messages`,
+          type: 'get',
+          dataType: 'json',
+          data: {id: last_message_id, group_id: group_id}
         })
-      .fail(function() {
-        alert('自動更新が停止しました');
-      });
-      setInterval(reloadMessages, 5000);
-    }
-    };
+        .done(function(messages) {
+          $.each(messages, function(index, message){
+            var html = buildmessage(message);
+            $('.messages').append(html);
+            $('.messages').animate({scrollTop: $('.messages').get(0).scrollHeight },'fast');
+          });
 
+            var elements = document.getElementsByClassName('message__text');
+            var lastElement = elements[elements.length - 1].innerText;
+            var current_group_id = $(`.chat-main`).data(`group-id`);
+            var target_html = $('#group-' + current_group_id).find('.group__latest-message')
+            target_html.text(lastElement);
+      
+          })
+        .fail(function() {
+          alert('自動更新が停止しました');
+        });
+      };
+    };
+    setInterval(reloadMessages, 5000);
   });
-});
+
